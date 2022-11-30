@@ -1,5 +1,6 @@
 import { Nodes } from './src/Nodes.js';
 import { Edges } from './src/Edges.js';
+import { Graph } from './src/Graph.js';
 
 window.onload = () => {
   let canvas = document.getElementById('canvas');
@@ -16,21 +17,13 @@ window.onload = () => {
     new Edges(nodes[0], nodes[1], 100, 1),
     new Edges(nodes[2], nodes[1], 100, 1),
   ];
+  let graph = new Graph(nodes, edges);
   update();
 
   function update() {
     context.clearRect(0, 0, width, height);
-    for (let i = 0; i < nodes.length; ++i) {
-      nodes[i].updateNode();
-      nodes[i].constraintNodes(width, height);
-      nodes[i].renderNode(context);
-    }
-
-    for (let i = 0; i < edges.length; ++i) {
-      edges[i].updateEdges();
-      edges[i].renderEdges(context);
-    }
-
+    graph.updateGraph(width, height);
+    graph.renderGraph(context);
     requestAnimationFrame(update);
   }
 };
