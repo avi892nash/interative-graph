@@ -10,7 +10,6 @@ window.onload = () => {
   let nodes = [
     new Nodes(100, 100, 95, 95, 'Avinash', 15, 0.99),
     new Nodes(200, 100, 195, 105, 'Verma', 15, 0.99),
-
     new Nodes(200, 400, 195, 405, 'Verma', 15, 0.99),
   ];
   let edges = [
@@ -18,7 +17,19 @@ window.onload = () => {
     new Edges(nodes[2], nodes[1], 100, 1),
   ];
   let graph = new Graph(nodes, edges);
+
   update();
+  canvas.addEventListener('mousedown', (event) => {
+    graph.mouseHold(event.clientX, event.clientY);
+  });
+
+  canvas.addEventListener('mousemove', (event) => {
+    graph.mouseMove(event.clientX, event.clientY);
+  });
+
+  canvas.addEventListener('mouseup', (event) => {
+    graph.removeHold();
+  });
 
   function update() {
     context.clearRect(0, 0, width, height);

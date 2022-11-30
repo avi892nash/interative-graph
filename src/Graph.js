@@ -4,6 +4,7 @@ class Graph {
   constructor(nodes, edges) {
     this.nodes = nodes;
     this.edges = edges;
+    this.holdNodeIndex = -1;
   }
 
   updateGraph(width, height) {
@@ -37,6 +38,28 @@ class Graph {
     }
     for (let i = 0; i < this.edges.length; ++i) {
       this.edges[i].renderEdges(context);
+    }
+  }
+  removeHold() {
+    this.holdNodeIndex = -1;
+  }
+
+  mouseMove(x, y) {
+    if (this.holdNodeIndex >= 0) {
+      this.nodes[this.holdNodeIndex].x = this.nodes[this.holdNodeIndex].oldx =
+        x;
+      this.nodes[this.holdNodeIndex].y = this.nodes[this.holdNodeIndex].oldy =
+        y;
+    }
+  }
+
+  mouseHold(x, y) {
+    if (this.holdNodeIndex >= 0) return;
+    for (let j = 0; j < this.nodes.length; ++j) {
+      if (this.nodes[j].isCoOrdinateInside(x, y)) {
+        this.holdNodeIndex = j;
+        break;
+      }
     }
   }
 }

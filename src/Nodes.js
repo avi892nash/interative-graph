@@ -1,3 +1,5 @@
+import { distance } from './Edges';
+
 class Nodes {
   constructor(
     x,
@@ -31,7 +33,6 @@ class Nodes {
   constraintNodes(width, height) {
     let dx = this.x - this.oldx;
     let dy = this.y - this.oldy;
-    console.log(this.y);
     if (this.x + this.radius > width) {
       this.x = width - this.radius;
       this.oldx = this.x + dx;
@@ -58,6 +59,11 @@ class Nodes {
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     ctx.fillStyle = this.color;
     ctx.fill();
+  }
+
+  isCoOrdinateInside(x, y) {
+    let dis = distance(this, { x, y });
+    return dis < this.radius;
   }
 }
 
