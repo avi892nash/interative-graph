@@ -11,7 +11,7 @@ window.onload = () => {
     new Nodes(100, 100, 95, 95, 'Avinash', 15, 0.99),
     new Nodes(200, 100, 195, 105, 'Verma', 15, 0.99),
 
-    new Nodes(200, 400, 195, 435, 'Verma', 15, 0.99),
+    new Nodes(200, 400, 195, 405, 'Verma', 15, 0.99),
   ];
   let edges = [
     new Edges(nodes[0], nodes[1], 100, 1),

@@ -35,4 +35,4 @@ class Edges {
   }
 }
 
-export { Edges };
+export { Edges, distance };
