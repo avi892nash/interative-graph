@@ -32,7 +32,6 @@ class Graph {
       if (this.holdNodeIndex >= 0 && this.holdNodeIndex == i) continue;
       this.nodes[i].updateNode();
       this.nodes[i].constraintNodes(width, height);
-      this.nodes[i].contriantSpeed();
     }
 
     for (let i = 0; i < this.edges.length; ++i) {
