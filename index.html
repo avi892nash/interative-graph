@@ -10,18 +10,18 @@
     <div id="enter">
       <h1>Welcome</h1>
       <div>Place JSON or JS (value or link) And press Enter</div>
-      <input id="input" style="height: 600px; width: 500px" />
+      <textarea id="input" style="height: 600px; width: 500px"></textarea>
       <button id="button" type="button">Draw it!</button>
     </div>
     <canvas id="canvas"> </canvas>
 
     <script type="module">
       import { drawGraph, generateGraph } from './index.js';
-      debugger;
-      document.getElementById('button').addEventListener('onclick', draw);
+
+      document.getElementById('button').addEventListener('click', draw);
       function draw() {
-        let content = document.getElementById('input').textContent;
-        debugger;
+        let content = document.getElementById('input').value;
+        console.log(content);
         if (checkJSON(content)) {
           try {
             let obj = JSON.parse(content);
@@ -35,7 +35,8 @@
           try {
             let script = document.createElement('script');
             script.onload = function () {
-              let graph = generateGraph(window.getMerchantFlowConfig, 20);
+              console.log(window.getMerchantFlowConfig());
+              let graph = generateGraph(window.getMerchantFlowConfig(), 20);
               document.getElementById('enter').style.display = 'none';
               drawGraph(graph);
             };
