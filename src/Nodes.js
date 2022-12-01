@@ -60,6 +60,12 @@ class Nodes {
     }
   }
 
+  contriantSpeed() {
+    if (Math.abs(this.x - this.oldx) > 30) { this.oldx = 30 - this.x + this.oldx}
+    if (Math.abs(this.y - this.oldy) > 30) { this.oldy = 30 - this.y + this.oldy}
+    
+  }
+
   renderNode(ctx) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
