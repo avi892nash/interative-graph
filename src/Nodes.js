@@ -9,7 +9,9 @@ class Nodes {
     name = 'no_name',
     radius = 10,
     friction = 0.5,
-    color = 'grey'
+    color = 'grey',
+    pinned = false,
+    stroke = 'black'
   ) {
     this.x = x;
     this.y = y;
@@ -19,9 +21,13 @@ class Nodes {
     this.friction = friction;
     this.radius = radius;
     this.color = color;
+    this.pinned = pinned;
+    this.stroke = stroke;
+
   }
 
   updateNode() {
+    if (this.pinned) return;
     let dx = this.x - this.oldx;
     let dy = this.y - this.oldy;
     this.oldx = this.x;
@@ -59,6 +65,15 @@ class Nodes {
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     ctx.fillStyle = this.color;
     ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = this.stroke;
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    
+    
+    ctx.fillStyle = 'black';
+    ctx.font = "12px Arial";
+    ctx.fillText(this.name,this.x - this.radius/2, this.y);
   }
 
   isCoOrdinateInside(x, y) {

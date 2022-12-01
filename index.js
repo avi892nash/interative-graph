@@ -1,22 +1,10 @@
-import { Nodes } from './src/Nodes.js';
-import { Edges } from './src/Edges.js';
-import { Graph } from './src/Graph.js';
+import { generateGraph } from './src/FlowConfigApp/generateGraph.js';
 
-window.onload = () => {
+function drawGraph(graph) {
   let canvas = document.getElementById('canvas');
   let context = canvas.getContext('2d');
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
-  let nodes = [
-    new Nodes(100, 100, 95, 95, 'Avinash', 15, 0.99),
-    new Nodes(200, 100, 195, 105, 'Verma', 15, 0.99),
-    new Nodes(200, 400, 195, 405, 'Verma', 15, 0.99),
-  ];
-  let edges = [
-    new Edges(nodes[0], nodes[1], 100, 1),
-    new Edges(nodes[2], nodes[1], 100, 1),
-  ];
-  let graph = new Graph(nodes, edges);
 
   update();
   canvas.addEventListener('mousedown', (event) => {
@@ -37,4 +25,6 @@ window.onload = () => {
     graph.renderGraph(context);
     requestAnimationFrame(update);
   }
-};
+}
+
+export { drawGraph, generateGraph };

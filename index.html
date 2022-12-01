@@ -4,11 +4,58 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>FlowConfig</title>
   </head>
   <body>
-    
+    <div id="enter">
+      <h1>Welcome</h1>
+      <div>Place JSON or JS (value or link) And press Enter</div>
+      <input id="input" style="height: 600px; width: 500px" />
+      <button id="button" type="button">Draw it!</button>
+    </div>
     <canvas id="canvas"> </canvas>
+
+    <script type="module">
+      import { drawGraph, generateGraph } from './index.js';
+      debugger;
+      document.getElementById('button').addEventListener('onclick', draw);
+      function draw() {
+        let content = document.getElementById('input').textContent;
+        debugger;
+        if (checkJSON(content)) {
+          try {
+            let obj = JSON.parse(content);
+            let graph = generateGraph(obj, 20);
+            document.getElementById('enter').style.display = 'none';
+            drawGraph(graph);
+          } catch (e) {
+            console.error(e);
+          }
+        } else {
+          try {
+            let script = document.createElement('script');
+            script.onload = function () {
+              let graph = generateGraph(window.getMerchantFlowConfig, 20);
+              document.getElementById('enter').style.display = 'none';
+              drawGraph(graph);
+            };
+            script.src = content;
+            document.head.appendChild(script);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+
+      function checkJSON(value) {
+        try {
+          JSON.parse(value);
+        } catch (e) {
+          return false;
+        }
+        return true;
+      }
+    </script>
     <script type="module" src="/index.js"></script>
   </body>
 </html>
