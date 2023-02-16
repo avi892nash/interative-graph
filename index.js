@@ -1,4 +1,7 @@
-import { generateGraph } from './src/FlowConfigApp/generateGraph.js';
+import {
+  generateGraph,
+  generateGraphFromJson,
+} from './src/FlowConfigApp/generateGraph.js';
 
 function drawGraph(graph) {
   let canvas = document.getElementById('canvas');
@@ -27,4 +30,4 @@ function drawGraph(graph) {
   }
 }
 
-export { drawGraph, generateGraph };
+export { drawGraph, generateGraph, generateGraphFromJson };

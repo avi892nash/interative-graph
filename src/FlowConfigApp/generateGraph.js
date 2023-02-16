@@ -63,4 +63,44 @@ function generateGraph(flowConfig, force) {
   return new Graph(nodes, edges, force);
 }
 
-export { generateGraph };
+function generateGraphFromJson(obj, root) {
+  let edges = [];
+  let nodes = {};
+  let x = 0;
+  let y = 0;
+  for (let nodeName in obj) {
+    let node = new Nodes(
+      x,
+      y,
+      x,
+      y,
+      nodeName,
+      18,
+      0.99,
+      nodeName == root ? 'white' : 'grey',
+      nodeName == root
+    );
+    nodes[nodeName] = node;
+    x += 25;
+    y += 25 + Math.random();
+  }
+
+  console.log(nodes);
+  for (let nodeName in obj) {
+    for (let childIndex in obj[nodeName]) {
+      edges.push(
+        new Edges(
+          nodes[nodeName],
+          nodes[obj[nodeName][childIndex]],
+          150,
+          0.01,
+          'black',
+          obj[nodeName][childIndex]
+        )
+      );
+    }
+  }
+  return new Graph(Object.values(nodes), edges, 20);
+}
+
+export { generateGraph, generateGraphFromJson };

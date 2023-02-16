@@ -16,7 +16,11 @@
     <canvas id="canvas"> </canvas>
 
     <script type="module">
-      import { drawGraph, generateGraph } from './index.js';
+      import {
+        drawGraph,
+        generateGraph,
+        generateGraphFromJson,
+      } from './index.js';
 
       document.getElementById('button').addEventListener('click', draw);
       function draw() {
@@ -25,7 +29,7 @@
         if (checkJSON(content)) {
           try {
             let obj = JSON.parse(content);
-            let graph = generateGraph(obj, 20);
+            let graph = generateGraphFromJson(obj, 'Main');
             document.getElementById('enter').style.display = 'none';
             drawGraph(graph);
           } catch (e) {
