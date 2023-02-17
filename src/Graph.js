@@ -40,21 +40,31 @@ class Graph {
   }
 
   renderGraph(context) {
-    for (let i = 0; i < this.nodes.length; ++i) {
-      this.nodes[i].renderNode(context);
-    }
     for (let i = 0; i < this.edges.length; ++i) {
       this.edges[i].renderEdges(context);
+    }
+    for (let i = 0; i < this.nodes.length; ++i) {
+      this.nodes[i].renderNode(context);
     }
   }
   removeHold() {
     for (let j = 0; j < this.edges.length; ++j) {
       if (this.edges[j].p1 == this.nodes[this.holdNodeIndex]) {
-        this.edges[j].color = 'black';
-
+        this.edges[j].color = '#00000022';
+        this.edges[j].strokeWidth = 1;
         this.edges[j].p2.stroke = 'black';
+        this.edges[j].p2.strokeWidth = 1;
+        this.edges[j].p2.showInfo = false;
+      }
+      if (this.edges[j].p2 == this.nodes[this.holdNodeIndex]) {
+        this.edges[j].color = '#00000022';
+        this.edges[j].strokeWidth = 1;
+        this.edges[j].p1.stroke = 'black';
+        this.edges[j].p1.strokeWidth = 1;
+        this.edges[j].p1.showInfo = false;
       }
     }
+    // this.nodes[this.holdNodeIndex].pinned = false;
     this.holdNodeIndex = -1;
   }
 
@@ -72,13 +82,25 @@ class Graph {
     for (let j = 0; j < this.nodes.length; ++j) {
       if (this.nodes[j].isCoOrdinateInside(x, y)) {
         this.holdNodeIndex = j;
+        this.nodes[j].pinned = true;
+        this.nodes[j].parmanentShowInfo = true;
         break;
       }
     }
     for (let j = 0; j < this.edges.length; ++j) {
       if (this.edges[j].p1 == this.nodes[this.holdNodeIndex]) {
-        this.edges[j].color = 'red';
-        this.edges[j].p2.stroke = 'red';
+        this.edges[j].color = 'black';
+        this.edges[j].strokeWidth = 2;
+        this.edges[j].p2.stroke = 'black';
+        this.edges[j].p2.strokeWidth = 2;
+        this.edges[j].p2.showInfo = true;
+      }
+      if (this.edges[j].p2 == this.nodes[this.holdNodeIndex]) {
+        this.edges[j].color = '#FF000055';
+        this.edges[j].strokeWidth = 2;
+        this.edges[j].p1.stroke = 'red';
+        this.edges[j].p1.strokeWidth = 2;
+        this.edges[j].p1.showInfo = true;
       }
     }
   }

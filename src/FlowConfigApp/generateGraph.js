@@ -75,7 +75,7 @@ function generateGraphFromJson(obj, root) {
       x,
       y,
       nodeName,
-      18,
+      10,
       0.99,
       nodeName == root ? 'white' : 'grey',
       nodeName == root
@@ -92,9 +92,9 @@ function generateGraphFromJson(obj, root) {
         new Edges(
           nodes[nodeName],
           nodes[obj[nodeName][childIndex]],
-          150,
+          250,
           0.01,
-          'black',
+          '#00000022',
           obj[nodeName][childIndex]
         )
       );

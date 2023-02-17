@@ -19,6 +19,7 @@ class Edges {
     this.elasticity = elasticity;
     this.color = color;
     this.name = name;
+    this.strokeWidth = 1;
   }
 
   updateEdges() {
@@ -42,6 +43,7 @@ class Edges {
 
   renderEdges(ctx) {
     ctx.beginPath();
+    ctx.lineWidth = this.strokeWidth;
     let dis = distance(this.p1, this.p2);
 
     let dx = (this.p1.x - this.p2.x) / dis;

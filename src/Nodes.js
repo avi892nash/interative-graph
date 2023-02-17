@@ -23,7 +23,9 @@ class Nodes {
     this.color = color;
     this.pinned = pinned;
     this.stroke = stroke;
-
+    this.strokeWidth = 1;
+    this.showInfo = false;
+    this.parmanentShowInfo = undefined;
   }
 
   updateNode() {
@@ -32,8 +34,8 @@ class Nodes {
     let dy = this.y - this.oldy;
     this.oldx = this.x;
     this.oldy = this.y;
-    this.x += this.friction * dx;
-    this.y += this.friction * dy;
+    this.x += this.friction * Math.min(dx, 20.0);
+    this.y += this.friction * Math.min(dy, 20.0);
   }
 
   constraintNodes(width, height) {
@@ -61,13 +63,17 @@ class Nodes {
   }
 
   contriantSpeed() {
-    if (Math.abs(this.x - this.oldx) > 30) { this.oldx = 30 - this.x + this.oldx}
-    if (Math.abs(this.y - this.oldy) > 30) { this.oldy = 30 - this.y + this.oldy}
-    
+    if (Math.abs(this.x - this.oldx) > 30) {
+      this.oldx = 30 - this.x + this.oldx;
+    }
+    if (Math.abs(this.y - this.oldy) > 30) {
+      this.oldy = 30 - this.y + this.oldy;
+    }
   }
 
   renderNode(ctx) {
     ctx.beginPath();
+    ctx.lineWidth = this.strokeWidth;
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     ctx.fillStyle = this.color;
     ctx.fill();
@@ -75,16 +81,22 @@ class Nodes {
     ctx.strokeStyle = this.stroke;
     ctx.stroke();
     ctx.lineWidth = 1;
-    
-    
+
+    ctx.fillStyle = this.stroke;
+    if (this.showInfo || this.parmanentShowInfo) {
+      ctx.font = '16px Arial';
+      ctx.fillText(
+        this.name,
+        this.x - this.radius / 2,
+        this.y - 2 * this.radius
+      );
+    }
     ctx.fillStyle = 'black';
-    ctx.font = "12px Arial";
-    ctx.fillText(this.name,this.x - this.radius/2, this.y);
   }
 
   isCoOrdinateInside(x, y) {
     let dis = distance(this, { x, y });
-    return dis < this.radius;
+    return dis < 2 * this.radius;
   }
 }
 

@@ -8,59 +8,28 @@
   </head>
   <body>
     <div id="enter">
-      <h1>Welcome</h1>
-      <div>Place JSON or JS (value or link) And press Enter</div>
+      <div>Place JSON and press Enter</div>
       <textarea id="input" style="height: 600px; width: 500px"></textarea>
       <button id="button" type="button">Draw it!</button>
     </div>
     <canvas id="canvas"> </canvas>
 
     <script type="module">
-      import {
-        drawGraph,
-        generateGraph,
-        generateGraphFromJson,
-      } from './index.js';
+      import { generateGraphFromJson, drawGraph } from './index.js';
 
       document.getElementById('button').addEventListener('click', draw);
       function draw() {
         let content = document.getElementById('input').value;
         console.log(content);
-        if (checkJSON(content)) {
-          try {
-            let obj = JSON.parse(content);
-            let graph = generateGraphFromJson(obj, 'Main');
-            document.getElementById('enter').style.display = 'none';
-            drawGraph(graph);
-          } catch (e) {
-            console.error(e);
-          }
-        } else {
-          try {
-            let script = document.createElement('script');
-            script.onload = function () {
-              console.log(window.getMerchantFlowConfig());
-              let graph = generateGraph(window.getMerchantFlowConfig(), 20);
-              document.getElementById('enter').style.display = 'none';
-              drawGraph(graph);
-            };
-            script.src = content;
-            document.head.appendChild(script);
-          } catch (e) {
-            console.error(e);
-          }
-        }
-      }
-
-      function checkJSON(value) {
         try {
-          JSON.parse(value);
+          let obj = JSON.parse(content);
+          let graph = generateGraphFromJson(obj, 'Main');
+          document.getElementById('enter').style.display = 'none';
+          drawGraph(graph);
         } catch (e) {
-          return false;
+          console.error(e);
         }
-        return true;
       }
     </script>
-    <script type="module" src="/index.js"></script>
   </body>
 </html>
